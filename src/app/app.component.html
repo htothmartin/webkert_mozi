@@ -1,19 +1,6 @@
-<mat-sidenav-container>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <div>Super Cinema</div>
-      <div class="navigation-wrapper">
-        <ul class="navigation-items">
-          <li><a routerLink="/signup">Register</a></li>
-          <li><a routerLink="/main">Main</a></li>
-          <li><a routerLink="/gallery">Gallery</a></li>
-          <li><a routerLink="/contact">Contact</a></li>
-        </ul>
-      </div>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
-
-<router-outlet />
+<mat-toolbar color="primary">
+  <div>Cinema Mozi</div>
+  <a routerLink="/movies">Movies</a>
+  <a routerLink="/profile">Profile</a>
+</mat-toolbar>
+<router-outlet></router-outlet>
