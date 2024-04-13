@@ -1,6 +1,11 @@
 <mat-toolbar color="primary">
-  <div>Cinema Mozi</div>
-  <a routerLink="/movies">Movies</a>
-  <a routerLink="/profile">Profile</a>
+  <span class="title">Cinema Mozi</span>
+  <span class="spacer"></span>
+  <div class="buttons">
+    <button *ngIf="!(loggedInUser)" mat-button [routerLink]="['/login']">Login</button>
+    <button *ngIf="loggedInUser" mat-button [routerLink]="['/login']"(click)="logout()" >Logout</button>
+    <button mat-button [routerLink]="['/movies']">Movies</button>
+    <button mat-button [routerLink]="['/profile']">Profile</button>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

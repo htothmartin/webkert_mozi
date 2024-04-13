@@ -1,0 +1,20 @@
+
+
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  button {
+    margin: 0 10px;
+  }
+  

@@ -24,7 +24,7 @@ body {
     text-align: center;
   }
   
-  .form {
+  form {
     display: flex;
     flex-direction: column;
   }
@@ -36,4 +36,9 @@ body {
   button {
     margin: 20px;
   }
+
+  .subForm {
+    width: 100%;
+    display: inline-grid;
+}
   

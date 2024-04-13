@@ -1,0 +1,11 @@
+{
+  "hosting": [
+    {
+      "target": "webkert-mozi",
+      "source": ".",
+      "frameworksBackend": {
+        "region": "europe-west1"
+      }
+    }
+  ]
+}

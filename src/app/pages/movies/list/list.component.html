@@ -1,0 +1,18 @@
+<mat-grid-list [cols]="cols" rowHeight="4:5" gutterSize="20px"
+               fxLayout="row" fxLayout.lt-sm="column">
+  <mat-grid-tile *ngFor="let movie of moviesInput">
+    <mat-card [style.background-image]="'url(' + movie.image +')'">
+      <!--<img mat-card-image class="card-image" [src]="movie.image" alt="{{movie.title}}">-->
+      <mat-card-header>
+        <mat-card-title>{{movie.title}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <button mat-raised-button color="primary" (click)="openMovie(movie.id)">Megnézem</button>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+
+  

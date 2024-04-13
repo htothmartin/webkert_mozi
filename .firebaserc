@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "webkert-mozi": {
+      "hosting": {
+        "webkert-mozi": [
+          "webkert-mozi"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "webkert-mozi"
+  }
+}
