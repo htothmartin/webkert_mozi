@@ -4,12 +4,20 @@ import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [ProfileComponent],
   imports: [
     CommonModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    MatFormFieldModule,
+    MatCardModule,
+    FormsModule
   ]
 })
 export class ProfileModule { }

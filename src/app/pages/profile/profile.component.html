@@ -1,1 +1,17 @@
-<p>profile works!</p>
+<mat-card *ngIf="!isLoading && user">
+    <mat-card-header>
+      <mat-card-title>Felhasználói Profil</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="fill">
+        <mat-label>Név</mat-label>
+        <input matInput [(ngModel)]="user.name.firstname" [readonly]="!editMode" fromControlName="name">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="user.email" [readonly]="!editMode" fromControlName="email">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="toggleEditMode()" *ngIf="!editMode">Szerkesztés</button>
+      <button mat-raised-button color="primary" (click)="saveChanges()" *ngIf="editMode">Mentés</button>
+    </mat-card-content>
+  </mat-card>

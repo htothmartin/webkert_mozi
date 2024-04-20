@@ -3,6 +3,8 @@ import { Movie } from '../../shared/models/Movie';
 import { MovieService } from '../../shared/services/movie.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
+
+
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
@@ -11,14 +13,15 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class MoviesComponent implements OnInit{
   moviesObject?: Array<Movie>
 
+ 
+
   constructor(private movieService: MovieService, private afs: AngularFirestore) {}
 
   ngOnInit(): void {
-    this.movieService.loadMovieMeta().subscribe((data: Array<Movie>) => {
+    this.movieService.loadMoviesMeta().subscribe((data: Array<Movie>) => {
       this.moviesObject = data;
     })
   }
   
-
 
 }
