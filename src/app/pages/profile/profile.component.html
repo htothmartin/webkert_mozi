@@ -3,15 +3,50 @@
       <mat-card-title>Felhasználói Profil</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field appearance="fill">
-        <mat-label>Név</mat-label>
-        <input matInput [(ngModel)]="user.name.firstname" [readonly]="!editMode" fromControlName="name">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="user.email" [readonly]="!editMode" fromControlName="email">
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="toggleEditMode()" *ngIf="!editMode">Szerkesztés</button>
-      <button mat-raised-button color="primary" (click)="saveChanges()" *ngIf="editMode">Mentés</button>
-    </mat-card-content>
-  </mat-card>
+      <form [formGroup]="profileForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Vezetéknév</mat-label>
+          <input matInput [readonly]="!editMode" formControlName="lastname">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Keresztnév</mat-label>
+          <input matInput [readonly]="!editMode" formControlName="firstname">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput [readonly]="!editMode" formControlName="email">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Jelszó</mat-label>
+          <input matInput type="password" [readonly]="!editMode" formControlName="password">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Jelszó megerősítése</mat-label>
+          <input matInput type="password" [readonly]="!editMode" formControlName="confirmPassword">
+        </mat-form-field>
+      </form>
+    <button mat-raised-button color="primary" (click)="toggleEditMode()" *ngIf="!editMode">Szerkesztés</button>
+    <button mat-raised-button color="primary" (click)="saveChanges()" *ngIf="editMode">Mentés</button>
+  </mat-card-content>
+</mat-card>
+  <mat-table [dataSource]="bookings" class="mat-elevation-z8" *ngIf="isBookingsLoaded">
+
+    <!-- Column definitions -->
+    <ng-container matColumnDef="film">
+      <mat-header-cell *matHeaderCellDef>Film címe</mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{booking.movie_id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef> Dátum </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{booking.date}} </mat-cell>
+    </ng-container>
+
+    <!-- ... További oszlopok ... -->
+
+    <!-- Row definitions -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </mat-table>

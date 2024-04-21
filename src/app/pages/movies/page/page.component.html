@@ -4,13 +4,24 @@
   <p>{{ movie?.description }}</p>
   <p>Műfajok: {{ movie?.genres?.join(', ') }}</p>
   <p>Film hossza: {{ movie?.length }} perc</p>
+  <p>Jegyár: {{movie?.price | currencyFormat}}</p>
 
 
   
-  <mat-form-field appearance="fill">
-    <mat-label>Válasszon vetítést</mat-label>
-    <mat-select [formControl]="showtimeControl">
-      <mat-option *ngFor="let showtime of showtimes" [value]="showtime.time">{{ showtime.time }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <form [formGroup]="choosenDate">
+    <mat-form-field appearance="fill">
+      <mat-label>Válasszon vetítést</mat-label>
+      <mat-select formControlName="time">
+        <mat-option *ngFor="let showtime of showtimes" [value]="showtime.time">{{ showtime.time }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Válasza ki a vetítés napját:</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" [min]="minDate" [max]="maxDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>    
+  </form>
 </div>
+<app-seat-booking *ngIf="movieLoaded && choosenDate.value.date && choosenDate.value.time" [movieInput]="movie" [dateInput]="combinedDate"></app-seat-booking>

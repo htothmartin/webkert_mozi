@@ -1,0 +1,9 @@
+<p>seat-booking works!</p>
+<div class="seats">
+    <div *ngFor="let row of seats" class="row">
+      <app-seat *ngFor="let seat of row" [seat]="seat" (select)="reserveSeat(seat)"></app-seat>
+    </div>
+  </div>
+<div class="reserve-button">
+  <button mat-raised-button color="primary" (click)="reserveSeats()">Foglalás</button> 
+</div>

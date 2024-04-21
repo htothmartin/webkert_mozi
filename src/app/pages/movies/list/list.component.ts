@@ -1,22 +1,31 @@
-import { Component, Input, OnChanges, HostListener, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  HostListener,
+  SimpleChanges,
+} from '@angular/core';
 import { Movie } from '../../../shared/models/Movie';
 import { MovieService } from '../../../shared/services/movie.service';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrl: './list.component.scss'
+  styleUrl: './list.component.scss',
 })
-export class ListComponent implements OnChanges{
-
+export class ListComponent implements OnChanges {
   @Input() moviesInput?: Movie[];
   image?: string;
   cols = 3;
 
+  orderType = 'Növekvő';
+  sortAscending = true;
+
+  searchControl = new FormControl('');
 
   constructor(private movieService: MovieService, private router: Router) {}
-
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -36,21 +45,51 @@ export class ListComponent implements OnChanges{
     }
   }
 
-
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.moviesInput){
-      for(let movie of this.moviesInput){
-        this.movieService.loadImage(movie.image_url).subscribe(data => {
-          movie.image = data;
-        });
-      }
+    if (this.moviesInput) {
+      this.loadImages(this.moviesInput);
     }
-    
   }
 
-  openMovie(movieId: string){
-      this.router.navigateByUrl("/movies/page/" + movieId)
+  loadImages(movies: Movie[]) {
+    for (let movie of movies) {
+      this.movieService.loadImage(movie.image_url).subscribe((data) => {
+        movie.image = data;
+      });
+    }
   }
 
+  openMovie(movieId: string) {
+    this.router.navigateByUrl('/movies/page/' + movieId);
+  }
 
+  toggleSortDirection(): void {
+    this.sortAscending = !this.sortAscending;
+    if (!this.sortAscending) {
+      this.moviesInput = this.moviesInput?.reverse();
+      this.orderType = 'Csökkenő';
+    } else {
+      this.orderType = 'Növekvő';
+      this.moviesInput = this.moviesInput?.reverse();
+    }
+
+    console.log(this.orderType);
+  }
+  search() {
+    if (this.searchControl.value != null && this.searchControl.value != '') {
+      this.movieService
+        .loadMoviesMeta(this.searchControl.value, true)
+        .subscribe((data: Array<Movie>) => {
+          this.moviesInput = [...data];
+          this.loadImages(this.moviesInput);
+        });
+    } else {
+      this.movieService
+        .loadMoviesMeta('', true)
+        .subscribe((data: Array<Movie>) => {
+          this.moviesInput = [...data];
+          this.loadImages(this.moviesInput);
+        });
+    }
+  }
 }

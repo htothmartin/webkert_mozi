@@ -1,27 +1,41 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth'
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  constructor(private auth: AngularFireAuth) {}
 
-  constructor(private auth: AngularFireAuth) { }
-
-  login(email: string, password: string){
+  login(email: string, password: string) {
     console.log('Asd');
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
-  register(email: string, password: string){
+  register(email: string, password: string) {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  isUserLoggedIn(){
+  isUserLoggedIn() {
     return this.auth.user;
   }
 
-  logout(){
+  logout() {
     return this.auth.signOut();
+  }
+
+  updatePassword(newPassword: string) {
+    this.auth.currentUser.then((user) => {
+      if (user) {
+        user
+          .updatePassword(newPassword)
+          .then(() => {
+            console.log('Jelszó sikeresen frissítve');
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   }
 }

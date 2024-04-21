@@ -1,0 +1,30 @@
+.welcome-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: 
+      url('../../../assets/bg_image.jpg') no-repeat center center fixed,
+      rgba(0, 0, 0, 0.7);
+    background-size: cover;
+  }
+  
+  
+  .welcome-content {
+    text-align: center;
+    color: white; 
+  }
+  
+  .welcome-content h1,
+  .welcome-content p {
+    color: white;
+  }
+  
+  .welcome-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  

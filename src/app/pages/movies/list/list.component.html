@@ -1,3 +1,11 @@
+
+<div class="search-bar">
+  <input matInput type="text" placeholder="Keresés" [formControl]="searchControl">
+  <button mat-raised-button color="primary" (click)="search()">Keresés</button>
+  <p>Rendezés:</p>
+  <button mat-raised-button color="primary" (click)="toggleSortDirection()">{{orderType}}</button>
+</div>
+
 <mat-grid-list [cols]="cols" rowHeight="4:5" gutterSize="20px"
                fxLayout="row" fxLayout.lt-sm="column">
   <mat-grid-tile *ngFor="let movie of moviesInput">

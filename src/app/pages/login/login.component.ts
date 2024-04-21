@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   email = new FormControl('');
@@ -14,14 +14,15 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  login(){
-    this.authService.login(this.email.value as string, this.password.value as string).then(cred => {
-      console.log(cred);
-      this.router.navigateByUrl('/main');
-    }).then(error => {
-      console.log(error);
-    })
-    
+  login() {
+    this.authService
+      .login(this.email.value as string, this.password.value as string)
+      .then((cred) => {
+        console.log(cred);
+        this.router.navigateByUrl('/main');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
-  
 }
