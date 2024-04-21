@@ -4,6 +4,7 @@ import {
   OnChanges,
   HostListener,
   SimpleChanges,
+  OnInit,
 } from '@angular/core';
 import { Movie } from '../../../shared/models/Movie';
 import { MovieService } from '../../../shared/services/movie.service';
@@ -15,7 +16,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
-export class ListComponent implements OnChanges {
+export class ListComponent implements OnChanges, OnInit {
   @Input() moviesInput?: Movie[];
   image?: string;
   cols = 3;
@@ -26,6 +27,10 @@ export class ListComponent implements OnChanges {
   searchControl = new FormControl('');
 
   constructor(private movieService: MovieService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.calculateCols(window.innerWidth);
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

@@ -29,24 +29,25 @@
     <button mat-raised-button color="primary" (click)="saveChanges()" *ngIf="editMode">Mentés</button>
   </mat-card-content>
 </mat-card>
-  <mat-table [dataSource]="bookings" class="mat-elevation-z8" *ngIf="isBookingsLoaded">
-
-    <!-- Column definitions -->
-    <ng-container matColumnDef="film">
-      <mat-header-cell *matHeaderCellDef>Film címe</mat-header-cell>
-      <mat-cell *matCellDef="let booking"> {{booking.movie_id}} </mat-cell>
+<mat-card>
+  <mat-card-header color="main">
+  <mat-card-title>
+    Foglalások: 
+  </mat-card-title>
+  </mat-card-header>
+  <table mat-table [dataSource]="bookings" class="mat-elevation-z8" *ngIf="isBookingsLoaded">
+    <ng-container matColumnDef="movie">
+      <th mat-header-cell *matHeaderCellDef>Film címe</th>
+      <td mat-cell *matCellDef="let booking"> {{movies.get(booking.movie_id)}} </td>
     </ng-container>
-
+  
     <ng-container matColumnDef="date">
-      <mat-header-cell *matHeaderCellDef> Dátum </mat-header-cell>
-      <mat-cell *matCellDef="let booking"> {{booking.date}} </mat-cell>
+      <th mat-header-cell *matHeaderCellDef> Dátum </th>
+      <td mat-cell *matCellDef="let booking"> {{booking.date.toDate() | date}} </td>
     </ng-container>
-
-    <!-- ... További oszlopok ... -->
-
-    <!-- Row definitions -->
-
+  
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>
 
-  </mat-table>

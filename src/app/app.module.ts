@@ -18,9 +18,13 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { firebaseConfig } from '../firebase.config';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMenuModule } from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuComponent } from './shared/menu/menu.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MenuComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -28,6 +32,10 @@ import { firebaseConfig } from '../firebase.config';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatListModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    BrowserAnimationsModule,
     MatListModule,
     AngularFireModule.initializeApp(firebaseConfig),
     provideAuth(() => getAuth()),

@@ -18,7 +18,6 @@ export class LoginComponent {
     this.authService
       .login(this.email.value as string, this.password.value as string)
       .then((cred) => {
-        console.log(cred);
         this.router.navigateByUrl('/main');
       })
       .catch((error) => {

@@ -6,6 +6,7 @@ import { UserService } from '../../shared/services/user.service';
 import { passwordMatchValidator } from '../../shared/validators/validator';
 import { BookingService } from '../../shared/services/booking.service';
 import { Booking } from '../../shared/models/Booking';
+import { MovieService } from '../../shared/services/movie.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit, OnChanges {
     private authService: AuthService,
     private fb: FormBuilder,
     private userService: UserService,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private movieService: MovieService
   ) {}
 
   loggedInUser?: firebase.default.User | null;
@@ -25,7 +27,8 @@ export class ProfileComponent implements OnInit, OnChanges {
   isLoading = true;
   bookings: Booking[] = [];
   isBookingsLoaded = false;
-  displayedColumns: string[] = ['film', 'date'];
+  movies: Map<string, string> = new Map();
+  displayedColumns: string[] = ['movie', 'date'];
 
   profileForm = this.fb.group({
     firstname: [this.user?.name.firstname],
@@ -64,6 +67,11 @@ export class ProfileComponent implements OnInit, OnChanges {
         console.log(error);
       }
     );
+    this.movieService.loadMoviesMeta('', true).subscribe((data) => {
+      data.forEach((movie) => {
+        this.movies.set(movie.id, movie.title);
+      });
+    });
   }
 
   initForm() {

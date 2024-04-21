@@ -11,22 +11,16 @@ import { firstValueFrom } from 'rxjs';
 export class MovieService {
   collectionName = 'Movies';
 
-  movies?: Movie[];
-
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFireStorage
-  ) {
-    this.loadMoviesMeta('', true).subscribe((data) => {
-      this.movies = data;
-    });
-  }
+  ) {}
 
   loadMoviesMeta(
     searchTerm: string,
     sortAscending: boolean
   ): Observable<Array<Movie>> {
-    //eturn this.afs.collection<Movie>(this.collectionName).valueChanges();
+    //return this.afs.collection<Movie>(this.collectionName).valueChanges();
 
     if (sortAscending && searchTerm == '') {
       return this.afs

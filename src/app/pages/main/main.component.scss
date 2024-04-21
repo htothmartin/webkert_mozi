@@ -1,30 +1,35 @@
 .welcome-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: 
-      url('../../../assets/bg_image.jpg') no-repeat center center fixed,
-      rgba(0, 0, 0, 0.7);
-    background-size: cover;
-  }
-  
-  
-  .welcome-content {
-    text-align: center;
-    color: white; 
-  }
-  
-  .welcome-content h1,
-  .welcome-content p {
-    color: white;
-  }
-  
-  .welcome-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: url('../../../assets/bg_image.jpeg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-content {
+  position: relative;
+  text-align: center;
+  color: white; 
+}
+
+.welcome-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}

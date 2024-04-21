@@ -1,11 +1,30 @@
-<mat-toolbar color="primary">
-  <span class="title">Cinema Mozi</span>
-  <span class="spacer"></span>
-  <div class="buttons">
-    <button *ngIf="!(loggedInUser)" mat-button [routerLink]="['/login']">Login</button>
-    <button *ngIf="loggedInUser" mat-button [routerLink]="['/login']"(click)="logout()" >Logout</button>
-    <button mat-button [routerLink]="['/movies']">Movies</button>
-    <button mat-button [routerLink]="['/profile']">Profile</button>
-  </div>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <app-menu></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span class="title">Cinema Mozi</span>
+      <span class="spacer"></span>
+      <div class="buttons" fxHide.lt-sm>
+        <button *ngIf="!(loggedInUser)" mat-button [routerLink]="['/login']">Login</button>
+        <button *ngIf="loggedInUser" mat-button [routerLink]="['/login']"(click)="logout()" >Logout</button>
+        <button *ngIf="loggedInUser" mat-button [routerLink]="['/movies']">Movies</button>
+        <button *ngIf="loggedInUser" mat-button [routerLink]="['/profile']">Profile</button>
+      </div>
+      <div fxHide.gt-xs>
+          <button mat-icon-button (click)="toggleSideNav(sidenav)">
+            <mat-icon>menu</mat-icon>
+          </button>
+      </div>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+
+
+
