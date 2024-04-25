@@ -1,4 +1,4 @@
-<p>seat-booking works!</p>
+<div class="screen">Screen</div>
 <div class="seats">
     <div *ngFor="let row of seats" class="row">
       <app-seat *ngFor="let seat of row" [seat]="seat" (select)="reserveSeat(seat)"></app-seat>

@@ -1,7 +1,5 @@
 import { Component, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
-import { error } from 'console';
-import e from 'express';
 import { MatSidenav } from '@angular/material/sidenav';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -49,5 +47,11 @@ export class AppComponent implements OnInit {
 
   toggleSideNav(sidenav: MatSidenav) {
     sidenav.toggle();
+  }
+
+  onClose(event: any, sidenav: MatSidenav){
+    if(event == true){
+      sidenav.close();
+    }
   }
 }

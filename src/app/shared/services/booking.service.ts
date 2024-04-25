@@ -37,7 +37,9 @@ export class BookingService {
   bookSeats(booking: Booking) {
     return this.afs
       .collection<Booking>(this.collectionName)
-      .add(Object.assign({}, booking));
+      .add(Object.assign({}, booking)).then(docRef => {
+        return docRef.update('id', docRef.id);
+      })
   }
 
   findBookingsByUser(user_id: string) {
@@ -46,5 +48,9 @@ export class BookingService {
         return ref.where('user_id', '==', user_id);
       })
       .valueChanges();
+  }
+
+  deleteBooking(booking: Booking){
+    return this.afs.collection<Booking>(this.collectionName).doc(booking.id).delete();
   }
 }

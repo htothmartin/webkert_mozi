@@ -8,7 +8,6 @@ export class AuthService {
   constructor(private auth: AngularFireAuth) {}
 
   login(email: string, password: string) {
-    console.log('Asd');
     return this.auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -31,6 +30,21 @@ export class AuthService {
           .updatePassword(newPassword)
           .then(() => {
             console.log('Jelszó sikeresen frissítve');
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
+  }
+
+  updateEmail(newEmail: string) {
+    this.auth.currentUser.then((user) => {
+      if (user) {
+        user
+          .updateEmail(newEmail)
+          .then(() => {
+            console.log('Az email sikeresen frissítve');
           })
           .catch((error) => {
             console.error(error);

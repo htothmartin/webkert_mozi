@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/models/User';
 import { UserService } from '../../shared/services/user.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -22,16 +24,13 @@ export class RegisterComponent {
     })
   });
 
-  constructor(private authService: AuthService, private userService: UserService) {}
+  constructor(private authService: AuthService, private userService: UserService, private router: Router, private snackBar: MatSnackBar) {}
 
   onSubmit(){
-    console.log(this.registerForm.get('birtdayDate')?.value)
-    console.log(this.registerForm.valid);
+
     
     if(this.registerForm.valid && this.registerForm.get('password')?.value as string == this.registerForm.get('rePassword')?.value as string) {
-      console.log(this.registerForm.value);
       this.authService.register(this.registerForm.get('email')?.value as string, this.registerForm.get('password')?.value as string).then(cred =>{
-        console.log(cred);
         const user: User = {
           id: cred.user?.uid as string,
           email: this.registerForm.get('email')?.value as string,
@@ -43,14 +42,26 @@ export class RegisterComponent {
         }
         
         this.userService.create(user).then(
-          _ => {
+          () => {
             console.log('User added');
+            this.snackBar.open('Sikeres regisztráció!', '' , {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            });
+            this.router.navigateByUrl('/login');
           }
         ).catch(
           error => {
-            console.log(error);
+            console.error(error);
+            this.snackBar.open(`Sikertelen regisztráció! Hiba: ${error.message}`, '' , {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center',
+            });
           }
         )
+        
         
       })
     }

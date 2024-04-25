@@ -3,9 +3,8 @@ import { Seat } from '../../../../shared/models/Seat';
 import { Booking } from '../../../../shared/models/Booking';
 import { BookingService } from '../../../../shared/services/booking.service';
 import { Movie } from '../../../../shared/models/Movie';
-import { Time } from '@angular/common';
-import { subscribe } from 'diagnostics_channel';
 import { AuthService } from '../../../../shared/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-seat-booking',
@@ -23,7 +22,8 @@ export class SeatBookingComponent implements OnInit {
 
   constructor(
     private bookingService: BookingService,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -86,8 +86,21 @@ export class SeatBookingComponent implements OnInit {
         seats: this.selectedSeats,
       };
 
-      this.bookingService.bookSeats(newBooking);
+      this.bookingService.bookSeats(newBooking).then(() => {
+        this.snackBar.open('Sikeres fogalalás!', '', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      }).catch( (error) => {
+        this.snackBar.open('Sikertelen fogalalás!', 'Rendben', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      })
       this.selectedSeats = [];
+
     }
   }
 }

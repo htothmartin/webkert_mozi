@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput [readonly]="!editMode" formControlName="email">
+          <input matInput [readonly]="true" formControlName="email">
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Jelszó</mat-label>
@@ -35,7 +35,8 @@
     Foglalások: 
   </mat-card-title>
   </mat-card-header>
-  <table mat-table [dataSource]="bookings" class="mat-elevation-z8" *ngIf="isBookingsLoaded">
+  <div class="no-booking" *ngIf=" isBookingsLoaded && bookings.length == 0">Nincs még foglalása.</div>
+  <table mat-table [dataSource]="bookings" class="mat-elevation-z8" *ngIf="isBookingsLoaded && bookings.length > 0">
     <ng-container matColumnDef="movie">
       <th mat-header-cell *matHeaderCellDef>Film címe</th>
       <td mat-cell *matCellDef="let booking"> {{movies.get(booking.movie_id)}} </td>
@@ -45,6 +46,14 @@
       <th mat-header-cell *matHeaderCellDef> Dátum </th>
       <td mat-cell *matCellDef="let booking"> {{booking.date.toDate() | date}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Törlés </th>
+      <td mat-cell *matCellDef="let booking">
+        <button mat-button color="warn" (click)="deleteBooking(booking)" *ngIf="canDelete(booking)">Törlés</button>
+      </td>
+    </ng-container>
+    
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit, OnChanges {
     private fb: FormBuilder,
     private userService: UserService,
     private bookingService: BookingService,
-    private movieService: MovieService
+    private movieService: MovieService,
   ) {}
 
   loggedInUser?: firebase.default.User | null;
@@ -28,12 +28,12 @@ export class ProfileComponent implements OnInit, OnChanges {
   bookings: Booking[] = [];
   isBookingsLoaded = false;
   movies: Map<string, string> = new Map();
-  displayedColumns: string[] = ['movie', 'date'];
+  displayedColumns: string[] = ['movie', 'date', 'delete'];
 
   profileForm = this.fb.group({
     firstname: [this.user?.name.firstname],
     lastname: [this.user?.name.lastname],
-    email: [this.user?.email],
+    email: [this.user?.email, Validators.email],
     password: ['', Validators.minLength(6)],
     confirmPassword: ['', Validators.minLength(6)],
   });
@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit, OnChanges {
       {
         firstname: [this.user?.name.firstname],
         lastname: [this.user?.name.lastname],
-        email: [this.user?.email],
+        email: [this.user?.email, Validators.email],
         password: ['', Validators.minLength(6)],
         confirmPassword: ['', Validators.minLength(6)],
       },
@@ -97,7 +97,6 @@ export class ProfileComponent implements OnInit, OnChanges {
 
   saveChanges() {
     if (this.profileForm.valid) {
-      console.log('click');
       this.toggleEditMode();
 
       if (this.loggedInUser && this.user) {
@@ -110,8 +109,8 @@ export class ProfileComponent implements OnInit, OnChanges {
             lastname: this.profileForm.value.lastname as string,
           },
         };
-        console.log(userData);
         this.userService.updateUser(userData.id, userData);
+        
         if (
           this.profileForm.value.password &&
           this.profileForm.value.confirmPassword
@@ -121,4 +120,24 @@ export class ProfileComponent implements OnInit, OnChanges {
       }
     }
   }
+
+  deleteBooking(booking: Booking) {
+    this.bookingService.deleteBooking(booking);
+  }
+  
+  canDelete(booking: any) {
+    const now = new Date();
+    const bookingDate = new Date(booking.date.toDate());
+    return bookingDate > now && !this.isToday(bookingDate);
+  }
+  
+  isToday(date: Date) {
+    const today = new Date();
+    return date.getDate() == today.getDate() &&
+      date.getMonth() == today.getMonth() &&
+      date.getFullYear() == today.getFullYear();
+  }
+  
+
+
 }

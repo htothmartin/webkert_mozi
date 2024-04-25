@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,8 @@ export class LoginComponent {
   email = new FormControl('');
   password = new FormControl('');
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) {}
+
 
   login() {
     this.authService
@@ -22,6 +25,11 @@ export class LoginComponent {
       })
       .catch((error) => {
         console.error(error);
+        this.snackBar.open('Hibás e-mail cím vagy jelszó!', 'Rendben', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
       });
-  }
+  }  
 }
