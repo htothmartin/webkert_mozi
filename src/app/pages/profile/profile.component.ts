@@ -137,7 +137,4 @@ export class ProfileComponent implements OnInit, OnChanges {
       date.getMonth() == today.getMonth() &&
       date.getFullYear() == today.getFullYear();
   }
-  
-
-
 }

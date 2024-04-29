@@ -1,6 +1,11 @@
-# WebkertMozi
+# Webfejlesztési keretrendszerek
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.2.
+# Téma: Online mozijegy vásárlás
+
+# Leírás: 
+Egy Angular projekt Firebase backend szolgáltatásokkal.
+
+Egy mozi weboldal jegyfoglaló alkalmazása, ahol a felhasználóknak lehetősége van fiók regisztrációra, majd bejelentkezésre. A bejelentkezett felhasználók megtekinthetik a jelenleg vetítés alatt álló filmeket és jegyet foglalhatnak a vetítésekre, ahol csak a szabad helyek választhatóak ki. A profil oldalon a bejelentkezett felhasználónak lehetősége van módosítani néhány adatát és jelszót változtatni. A foglalások megtekinthetőek, és a nem lejárt, valamint a nem mai napra szóló foglalások törlésére van lehetőség.
 
 ## Development server
 
