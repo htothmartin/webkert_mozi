@@ -24,7 +24,6 @@ export class BookingService {
       )
     );
     const timestamp = firebase.firestore.Timestamp.fromDate(dateInUTC);
-    console.log(timestamp);
     return this.afs
       .collection<Booking>(this.collectionName, (ref) => {
         return ref

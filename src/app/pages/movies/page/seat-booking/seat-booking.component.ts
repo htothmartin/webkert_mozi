@@ -36,7 +36,6 @@ export class SeatBookingComponent implements OnInit {
       }
     );
 
-    console.log(this.dateInput);
     this.bookingService
       .findBookingsForMovie(
         this.movieInput?.id as string,
@@ -45,7 +44,6 @@ export class SeatBookingComponent implements OnInit {
       .subscribe((data: Array<Booking>) => {
         this.bookings = data;
         this.seats = this.generateSeats(6, 8);
-        console.log(this.bookings);
       });
   }
 
@@ -66,14 +64,12 @@ export class SeatBookingComponent implements OnInit {
       }
       seats.push(seatRow);
     }
-    console.log(seats);
     return seats;
   }
 
   reserveSeat(seat: Seat) {
     seat.reserved = !seat.reserved;
     this.selectedSeats.push(seat);
-    console.log(this.selectedSeats);
   }
 
   reserveSeats() {

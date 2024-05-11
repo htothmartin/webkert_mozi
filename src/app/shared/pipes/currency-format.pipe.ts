@@ -30,8 +30,6 @@ export class CurrencyFormatPipe implements PipeTransform {
     }
 
     const exchangeRate = this.exchangeRates[this.currency];
-    console.log(this.currency);
-    console.log(exchangeRate);
     return (value * exchangeRate).toFixed(2) + ' ' + this.currency;
   }
 }

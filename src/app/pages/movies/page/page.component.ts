@@ -65,7 +65,6 @@ export class PageComponent implements OnInit, OnChanges {
     this.choosenDate.valueChanges.subscribe((val) => {
       if (val.date && val.time) {
         const date = new Date(val.date);
-        console.log(val.time);
         const timeParts = val.time.split(':');
         date.setHours(parseInt(timeParts[0]));
         date.setMinutes(parseInt(timeParts[1]));

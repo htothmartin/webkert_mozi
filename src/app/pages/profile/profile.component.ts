@@ -44,12 +44,13 @@ export class ProfileComponent implements OnInit, OnChanges {
         this.loggedInUser = user;
 
         if (this.loggedInUser) {
+          
           this.userService.getById(this.loggedInUser.uid).subscribe(
             (user) => {
+              
               this.user = user;
               this.isLoading = false;
               this.initForm();
-
               this.bookingService
                 .findBookingsByUser(this.loggedInUser?.uid as string)
                 .subscribe((data: Array<Booking>) => {
@@ -100,6 +101,7 @@ export class ProfileComponent implements OnInit, OnChanges {
       this.toggleEditMode();
 
       if (this.loggedInUser && this.user) {
+        
         const userData: User = {
           id: this.user?.id,
           email: this.profileForm.value.email as string,
